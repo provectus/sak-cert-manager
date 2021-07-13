@@ -99,11 +99,23 @@ locals {
   repository = "https://charts.jetstack.io"
   name       = "cert-manager"
   chart      = "cert-manager"
-  version    = "v0.15.1"
+  version    = "v1.4.0"
   values = concat([
     {
       "name"  = "installCRDs"
       "value" = "true"
+    },
+    {
+      "name"  = "ingressShim.defaultIssuerName"
+      "value" = "letsencrypt-prod"
+    },
+    {
+      "name"  = "ingressShim.defaultIssuerKind"
+      "value" = "ClusterIssuer"
+    },
+    {
+      "name"  = "ingressShim.defaultIssuerGroup"
+      "value" = "cert-manager.io"
     },
     {
       "name"  = "rbac.serviceAccountAnnotations.eks\\.amazonaws\\.com/role-arn"
