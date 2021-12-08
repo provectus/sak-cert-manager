@@ -8,7 +8,6 @@ data "aws_eks_cluster" "this" {
 
 data "aws_region" "current" {}
 
-
 module "iam_assumable_role_admin" {
   source                        = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version                       = "4.7.0"
