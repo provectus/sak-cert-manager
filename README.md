@@ -1,5 +1,11 @@
 # Cert-manager
 
+## Requirements
+
+```
+terraform >= 1.1
+ ```
+ 
 ## How it use
 
 ```
