@@ -60,15 +60,6 @@ resource "aws_iam_policy" "this" {
   )
 }
 
-resource "kubernetes_namespace" "this" {
-  depends_on = [
-    var.module_depends_on
-  ]
-  metadata {
-    name = var.namespace
-  }
-}
-
 resource "local_file" "this" {
   depends_on = [
     var.module_depends_on
@@ -95,7 +86,7 @@ resource "local_file" "issuers" {
 }
 
 locals {
-  namespace  = kubernetes_namespace.this.id
+  namespace  = var.namespace
   repository = "https://charts.jetstack.io"
   name       = "cert-manager"
   chart      = "cert-manager"
@@ -240,6 +231,9 @@ locals {
           "prune"    = true
           "selfHeal" = true
         }
+      }
+      "syncOptions" = {
+        "createNamespace" = true
       }
     }
   }
