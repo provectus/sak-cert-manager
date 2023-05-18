@@ -1,44 +1,48 @@
 variable "cluster_name" {
-  type    = string
-  default = ""
+  type        = string
+  description = "Cluster name"
+  default     = ""
 }
 
 variable "domains" {
-  type    = list(string)
-  default = []
+  type        = list(string)
+  description = "List of domains"
+  default     = []
 }
 
 variable "email" {
-  type    = string
-  default = ""
+  type        = string
+  description = "Email address to be used"
+  default     = ""
 }
 
 variable "environment" {
-  type    = string
-  default = ""
+  type        = string
+  description = "Environment name"
+  default     = ""
 }
 
 variable "module_depends_on" {
-  type    = list(any)
-  default = []
+  type        = list(any)
+  description = "Module depends on the list provided"
+  default     = []
 }
 
 variable "namespace" {
-  type    = string
-  default = "cert-manager"
+  type        = string
+  description = "Namespace"
+  default     = "cert-manager"
 }
 
 variable "project" {
-  type    = string
-  default = ""
-}
-
-variable "vpc_id" {
-  type = string
+  type        = string
+  description = "Project name"
+  default     = ""
 }
 
 variable "zone_id" {
-  type = string
+  type        = string
+  description = "Zone ID to be used"
 }
 
 variable "argocd" {
