@@ -198,6 +198,10 @@ locals {
           "prune"    = true
           "selfHeal" = true
         }
+        "syncOptions" = {
+          "createNamespace" = true
+        }
+
       }
     }
   }
@@ -226,6 +230,9 @@ locals {
         "automated" = {
           "prune"    = true
           "selfHeal" = true
+        }
+        "syncOptions" = {
+          "createNamespace" = true
         }
       }
       "syncOptions" = {
