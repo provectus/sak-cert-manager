@@ -1,12 +1,22 @@
-# Cert-manager
+# Swiss Army Kube Cert-manager module
+
+ 
+## How it use
+
+This module was created to deploy Certificate Manager within Swiss Army Kube cluster with ease and simplicity.
+Check out main repo of Swiss Army Kube for more information about the project in general.
+
+**[Swiss Army Kube](https://github.com/provectus/swiss-army-kube)**
+
+**[Contributing Guide](https://github.com/provectus/swiss-army-kube/blob/master/CONTRIBUTING.md)**
 
 ## Requirements
 
 ```
 terraform >= 1.1
  ```
- 
-## How it use
+
+## Example of how to use
 
 ```
 module "cert-manager" {

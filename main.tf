@@ -1,7 +1,3 @@
-data "aws_vpc" "main" {
-  id = var.vpc_id
-}
-
 data "aws_eks_cluster" "this" {
   name = var.cluster_name
 }
@@ -11,10 +7,10 @@ data "aws_region" "current" {}
 
 module "iam_assumable_role_admin" {
   source = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  # version                       = "~> v2.6.0"
+  version                       = ">= 2.6"
   create_role                   = true
   role_name                     = "${data.aws_eks_cluster.this.id}_${local.name}"
-  provider_url                  = replace(data.aws_eks_cluster.this.identity.0.oidc.0.issuer, "https://", "")
+  provider_url                  = replace(data.aws_eks_cluster.this.identity[0].oidc[0].issuer, "https://", "")
   role_policy_arns              = [aws_iam_policy.this.arn]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${local.namespace}:${local.name}"]
 
@@ -60,15 +56,6 @@ resource "aws_iam_policy" "this" {
   )
 }
 
-resource "kubernetes_namespace" "this" {
-  depends_on = [
-    var.module_depends_on
-  ]
-  metadata {
-    name = var.namespace
-  }
-}
-
 resource "local_file" "this" {
   depends_on = [
     var.module_depends_on
@@ -95,7 +82,7 @@ resource "local_file" "issuers" {
 }
 
 locals {
-  namespace  = kubernetes_namespace.this.id
+  namespace  = var.namespace
   repository = "https://charts.jetstack.io"
   name       = "cert-manager"
   chart      = "cert-manager"
@@ -211,6 +198,10 @@ locals {
           "prune"    = true
           "selfHeal" = true
         }
+        "syncOptions" = {
+          "createNamespace" = true
+        }
+
       }
     }
   }
@@ -240,6 +231,12 @@ locals {
           "prune"    = true
           "selfHeal" = true
         }
+        "syncOptions" = {
+          "createNamespace" = true
+        }
+      }
+      "syncOptions" = {
+        "createNamespace" = true
       }
     }
   }
